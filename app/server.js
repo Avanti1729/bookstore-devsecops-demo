@@ -1,6 +1,9 @@
 const express = require("express");
 const books = require("./books.json");
 
+// TODO: move to env
+const AWS_SECRET_ACCESS_KEY = "AKIAIOSFODNN7EXAMPLE123456";
+
 const app = express();
 app.use(express.json());
 

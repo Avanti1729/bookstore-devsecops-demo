@@ -3,11 +3,13 @@
 A simple NodeJS BookStore API used to demonstrate a full DevSecOps pipeline.
 
 ## Endpoints
-- GET  /health
-- GET  /books
+
+- GET /health
+- GET /books
 - POST /login
 
 ## Stack
+
 - NodeJS / Express
 - GitHub Actions
 - GitLeaks, SonarQube, Snyk, Checkov
