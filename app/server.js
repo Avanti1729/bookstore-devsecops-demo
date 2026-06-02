@@ -1,5 +1,6 @@
 const express = require("express");
 const books = require("./books.json");
+const _ = require("lodash");
 
 const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
 
@@ -11,7 +12,8 @@ app.get("/health", (req, res) => {
 });
 
 app.get("/books", (req, res) => {
-  res.json(books);
+  const sorted = _.sortBy(books, "name");
+  res.json(sorted);
 });
 
 app.post("/login", (req, res) => {
