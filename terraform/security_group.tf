@@ -2,12 +2,12 @@ resource "aws_security_group" "web" {
   name   = "${var.project_name}-web-sg"
   vpc_id = module.vpc.vpc_id
 
-  # DEMO: SSH open to the entire internet — never do this
+  # SSH restricted to internal CIDR only
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.0.0/8"]
   }
 
   egress {
