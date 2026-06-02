@@ -1,0 +1,33 @@
+name: DevSecOps Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install Dependencies
+        run: |
+          cd app
+          npm install
+
+      - name: Run Health Check
+        run: |
+          cd app
+          node server.js &
+          sleep 2
+          curl -f http://localhost:3000/health
+          kill %1
