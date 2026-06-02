@@ -73,3 +73,17 @@ jobs:
           exit-code: "1"
           ignore-unfixed: false
           severity: "CRITICAL,HIGH"
+
+  checkov:
+    runs-on: ubuntu-latest
+    needs: trivy
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Run Checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: terraform/
+          framework: terraform
+          soft_fail: false
