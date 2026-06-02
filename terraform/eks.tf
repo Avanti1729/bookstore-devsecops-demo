@@ -18,7 +18,8 @@ module "eks" {
   }
 
   tags = {
-    Project = var.project_name
+    Project     = var.project_name
+    Description = "BookStore EKS Kubernetes cluster"
   }
 }
 
