@@ -3,6 +3,7 @@ module "vpc" {
   version = "5.0.0"
 
 
+
   name = "${var.project_name}-vpc"
   cidr = "10.0.0.0/16"
 
