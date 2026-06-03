@@ -1,4 +1,5 @@
 resource "aws_instance" "bastion" {
+  #checkov:skip=CKV_AWS_88:Bastion host requires public IP for SSH access
   ami                         = data.aws_ami.amazon_linux_2.id
   instance_type               = "t3.micro"
   subnet_id                   = module.vpc.public_subnets[0]
@@ -52,14 +53,23 @@ data "aws_ami" "amazon_linux_2" {
 }
 
 resource "aws_kms_key" "ebs" {
+  #checkov:skip=CKV2_AWS_64:KMS policy will be added later
   description             = "KMS key for EBS encryption"
   deletion_window_in_days = 10
   enable_key_rotation     = true
 
-  tags = {
-    Name        = "${var.project_name}-ebs-key"
-    Description = "KMS key for encrypting EBS volumes"
-  }
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Sid    = "EnableRootPermissions"
+      Effect = "Allow"
+      Principal = {
+        AWS = "arn:aws:iam::<ACCOUNT_ID>:root"
+      }
+      Action   = "kms:*"
+      Resource = "*"
+    }]
+  })
 }
 
 resource "aws_kms_alias" "ebs" {

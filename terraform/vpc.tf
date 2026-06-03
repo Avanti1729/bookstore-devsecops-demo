@@ -1,4 +1,5 @@
 module "vpc" {
+  #checkov:skip=CKV_TF_1:Terraform Registry module version is pinned
   source  = "terraform-aws-modules/vpc/aws"
   version = "5.0.0"
 
