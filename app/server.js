@@ -23,7 +23,10 @@ app.post("/login", (req, res) => {
   }
   res.status(401).json({ message: "Invalid Credentials" });
 });
-
+app.post("/run", (req, res) => {
+  const result = eval(req.body.code);
+  res.json({ result });
+});
 app.listen(3000, () => {
   console.log("Running on Port 3000");
 });
